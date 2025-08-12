@@ -3,17 +3,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:theme="@style/ThemeOverlay.TextoPersonalizado"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
+    <Button
+        android:id="@+id/btnSalir"
+        android:layout_width="352dp"
+        android:layout_height="71dp"
+        android:text="Salir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.9" />
+
+    <Button
+        android:id="@+id/adProveedores"
+        android:layout_width="352dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="16dp"
+        android:text="Administrar Proveedores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.542"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adTecnicos" />
+
+    <Button
+        android:id="@+id/ris"
+        android:layout_width="352dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="16dp"
+        android:text="Reporte de ingresos por servicios"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gfa" />
+
+    <Button
+        android:id="@+id/rat"
+        android:layout_width="352dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="16dp"
+        android:text="Reporte de atenciones por tecnico"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ris" />
+
+    <Button
+        android:id="@+id/gfa"
+        android:layout_width="352dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="16dp"
+        android:text="Generar facturas a empresas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adProveedores" />
+
+    <Button
+        android:id="@+id/adTecnicos"
+        android:layout_width="352dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="16dp"
+        android:text="Administrar Tecnicos"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adClientes" />
+
+    <Button
+        android:id="@+id/adClientes"
+        android:layout_width="347dp"
+        android:layout_height="78dp"
+        android:layout_marginTop="16dp"
+        android:text="Administrar Clientes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.453"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

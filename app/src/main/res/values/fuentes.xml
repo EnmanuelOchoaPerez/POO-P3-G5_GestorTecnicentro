@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Fuente por defecto para el menu principal-->
+<style name="ThemeOverlay.TextoPersonalizado" parent="">
+    <item name="android:fontFamily">sans-serif-light</item>
+    <item name="android:textSize">18sp</item>
+</style>
+</resources>
