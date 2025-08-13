@@ -1,0 +1,42 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tvIdTecnico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID:"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvNombreTecnico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre:" />
+
+    <TextView
+        android:id="@+id/tvTelefonoTecnico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Teléfono:" />
+
+    <TextView
+        android:id="@+id/tvEspecialidadTecnico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Especialidad:" />
+
+    <Button
+        android:id="@+id/btnEliminar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@android:color/holo_red_dark"
+        android:text="Eliminar"
+        android:textColor="@android:color/white" />
+
+
+
+</LinearLayout>

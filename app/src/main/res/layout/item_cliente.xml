@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvIdCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ID:"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvNombreCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nombre:"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvDireccionCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dirección:"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvTelefonoCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Teléfono:"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvTipoCliente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tipo Cliente:"
+        android:layout_marginBottom="8dp" />
+
+</LinearLayout>
