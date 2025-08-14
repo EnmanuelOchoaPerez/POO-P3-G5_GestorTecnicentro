@@ -1,6 +1,8 @@
 package poo.par3g5.gestortecnicentro;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +22,13 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+    public void abrirFacturas(View v) {
+        Intent intento = new Intent(this, AdministrarFacturas.class);
+        startActivity(intento);
+    }
+    public void abrirClientes(View v) {
+        Intent intento = new Intent(this, AdministrarClientes.class);
+        startActivity(intento);
     }
 }
