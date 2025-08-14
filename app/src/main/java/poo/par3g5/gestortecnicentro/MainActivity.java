@@ -1,6 +1,8 @@
 package poo.par3g5.gestortecnicentro;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,4 +23,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+    //lanzar la actividad Administrar Clientes
+    public void mostrarAdministrarClientes(View v){
+        Intent intento= new Intent(this, AdministrarClientes.class);
+        startActivity(intento);
+    }
+
+    //lanzar la actividad Administrar Tecnicos
+    public void mostrarAdministrarTecnicos(View v){
+        Intent intento= new Intent(this, AdministrarTecnicos.class);
+        startActivity(intento);
+    }
+
+    //lanzar la actividad Administrar Tecnicos
+    public void mostrarAdministrarProveedores(View v){
+        Intent intento= new Intent(this, AdministrarProveedores.class);
+        startActivity(intento);
+    }
+
+
 }
