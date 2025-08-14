@@ -12,6 +12,7 @@
         android:id="@+id/btnSalir"
         android:layout_width="352dp"
         android:layout_height="71dp"
+        android:onClick="salir"
         android:text="Salir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

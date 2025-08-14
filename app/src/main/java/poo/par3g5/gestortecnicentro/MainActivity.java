@@ -31,4 +31,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intento = new Intent(this, AdministrarClientes.class);
         startActivity(intento);
     }
+    public void salir(View view) {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Confirmar salida")
+                .setMessage("¿Estás seguro de que deseas cerrar la aplicación?")
+                .setPositiveButton("Sí", (dialog, which) -> finishAffinity())
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 }

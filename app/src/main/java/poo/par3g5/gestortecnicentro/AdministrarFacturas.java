@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,23 +56,30 @@ public class AdministrarFacturas extends AppCompatActivity {
         @NonNull
         @Override
         public AdaptadorFacturaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            // Crear layout dinámico (como si fuera item_factura.xml)
+            // Crear CardView
+            CardView cardView = new CardView(parent.getContext());
+            int margin = (int) (8 * parent.getContext().getResources().getDisplayMetrics().density);
+            RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(margin, margin, margin, margin);
+            cardView.setLayoutParams(layoutParams);
+            cardView.setRadius(16); // Esquinas redondeadas
+            cardView.setCardElevation(8); // Sombra
+
+            // Crear LinearLayout como contenido del CardView
             LinearLayout layout = new LinearLayout(parent.getContext());
             layout.setOrientation(LinearLayout.VERTICAL);
             int paddingPx = (int) (16 * parent.getContext().getResources().getDisplayMetrics().density);
             layout.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
-            layout.setLayoutParams(new RecyclerView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            ));
 
-            // Margen inferior para cada TextView
+            // Crear TextViews con márgenes
             LinearLayout.LayoutParams paramsMargen = new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
             paramsMargen.setMargins(0, 0, 0, (int) (8 * parent.getContext().getResources().getDisplayMetrics().density));
 
-            // Crear TextViews
             TextView tvFecha = new TextView(parent.getContext());
             tvFecha.setLayoutParams(paramsMargen);
 
@@ -84,14 +92,18 @@ public class AdministrarFacturas extends AppCompatActivity {
             TextView tvOrdenes = new TextView(parent.getContext());
             tvOrdenes.setLayoutParams(paramsMargen);
 
-            // Añadir al layout
+            // Añadir TextViews al layout
             layout.addView(tvFecha);
             layout.addView(tvCliente);
             layout.addView(tvTotal);
             layout.addView(tvOrdenes);
 
-            return new AdaptadorFacturaHolder(layout, tvFecha, tvCliente, tvTotal, tvOrdenes);
+            // Añadir layout al CardView
+            cardView.addView(layout);
+
+            return new AdaptadorFacturaHolder(cardView, tvFecha, tvCliente, tvTotal, tvOrdenes);
         }
+
 
         @Override
         public void onBindViewHolder(@NonNull AdaptadorFacturaHolder holder, int position) {
