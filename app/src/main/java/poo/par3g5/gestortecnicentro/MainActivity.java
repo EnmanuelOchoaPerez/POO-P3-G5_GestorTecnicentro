@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
+
     //lanzar la actividad Administrar Clientes
     public void mostrarAdministrarClientes(View v){
         Intent intent= new Intent(this, AdministrarClientes.class);
@@ -42,4 +43,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    public void abrirFacturas(View v) {
+        Intent intento = new Intent(this, AdministrarFacturas.class);
+        startActivity(intento);
+    }
+    //public void abrirClientes(View v) {
+       // Intent intento = new Intent(this, AdministrarClientes.class);
+      //  startActivity(intento);
+   // }
+    public void salir(View view) {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Confirmar salida")
+                .setMessage("¿Estás seguro de que deseas cerrar la aplicación?")
+                .setPositiveButton("Sí", (dialog, which) -> finishAffinity())
+                .setNegativeButton("Cancelar", null)
+                .show();
+    }
 }

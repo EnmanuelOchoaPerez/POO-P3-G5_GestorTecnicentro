@@ -12,6 +12,7 @@
         android:id="@+id/btnSalir"
         android:layout_width="352dp"
         android:layout_height="71dp"
+        android:onClick="salir"
         android:text="Salir"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,10 +61,12 @@
         android:layout_height="71dp"
         android:layout_marginTop="16dp"
         android:text="Generar facturas a empresas"
+        android:onClick="abrirFacturas"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/adProveedores" />
+        app:layout_constraintTop_toBottomOf="@+id/adProveedores"
+        />
 
     <Button
         android:id="@+id/adTecnicos"
@@ -87,4 +90,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
