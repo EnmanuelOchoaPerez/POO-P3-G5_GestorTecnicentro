@@ -25,20 +25,20 @@ public class MainActivity extends AppCompatActivity {
     }
     //lanzar la actividad Administrar Clientes
     public void mostrarAdministrarClientes(View v){
-        Intent intento= new Intent(this, AdministrarClientes.class);
-        startActivity(intento);
+        Intent intent= new Intent(this, AdministrarClientes.class);
+        startActivity(intent);
     }
 
     //lanzar la actividad Administrar Tecnicos
     public void mostrarAdministrarTecnicos(View v){
-        Intent intento= new Intent(this, AdministrarTecnicos.class);
-        startActivity(intento);
+        Intent intent= new Intent(this, AdministrarTecnicos.class);
+        startActivity(intent);
     }
 
     //lanzar la actividad Administrar Tecnicos
     public void mostrarAdministrarProveedores(View v){
-        Intent intento= new Intent(this, AdministrarProveedores.class);
-        startActivity(intento);
+        Intent intent= new Intent(this, AdministrarProveedores.class);
+        startActivity(intent);
     }
 
 
