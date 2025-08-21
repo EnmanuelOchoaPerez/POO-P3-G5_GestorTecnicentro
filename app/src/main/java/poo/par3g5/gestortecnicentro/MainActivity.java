@@ -49,9 +49,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intento);
     }
     //public void abrirClientes(View v) {
-       // Intent intento = new Intent(this, AdministrarClientes.class);
-      //  startActivity(intento);
-   // }
+    // Intent intento = new Intent(this, AdministrarClientes.class);
+    //  startActivity(intento);
+    // }
     public void salir(View view) {
         new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Confirmar salida")
