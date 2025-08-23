@@ -1,6 +1,8 @@
 package poo.par3g5.gestortecnicentro;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -33,7 +35,6 @@ public class AdministrarFacturas extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_administrar_facturas);
         TextView titulo = findViewById(R.id.tvTextoEncabezado);
         titulo.setText("Administrar Facturas");
@@ -53,54 +54,10 @@ public class AdministrarFacturas extends AppCompatActivity {
         @NonNull
         @Override
         public AdaptadorFacturaHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            // Crear CardView
-            CardView cardView = new CardView(parent.getContext());
-            int margin = (int) (8 * parent.getContext().getResources().getDisplayMetrics().density);
-            RecyclerView.LayoutParams layoutParams = new RecyclerView.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-            );
-            layoutParams.setMargins(margin, margin, margin, margin);
-            cardView.setLayoutParams(layoutParams);
-            cardView.setRadius(16); // Esquinas redondeadas
-            cardView.setCardElevation(8); // Sombra
-
-            // Crear LinearLayout como contenido del CardView
-            LinearLayout layout = new LinearLayout(parent.getContext());
-            layout.setOrientation(LinearLayout.VERTICAL);
-            int paddingPx = (int) (16 * parent.getContext().getResources().getDisplayMetrics().density);
-            layout.setPadding(paddingPx, paddingPx, paddingPx, paddingPx);
-
-            // Crear TextViews con márgenes
-            LinearLayout.LayoutParams paramsMargen = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
-            paramsMargen.setMargins(0, 0, 0, (int) (8 * parent.getContext().getResources().getDisplayMetrics().density));
-
-            TextView tvFecha = new TextView(parent.getContext());
-            tvFecha.setLayoutParams(paramsMargen);
-
-            TextView tvCliente = new TextView(parent.getContext());
-            tvCliente.setLayoutParams(paramsMargen);
-
-            TextView tvTotal = new TextView(parent.getContext());
-            tvTotal.setLayoutParams(paramsMargen);
-
-            TextView tvOrdenes = new TextView(parent.getContext());
-            tvOrdenes.setLayoutParams(paramsMargen);
-
-            // Añadir TextViews al layout
-            layout.addView(tvFecha);
-            layout.addView(tvCliente);
-            layout.addView(tvTotal);
-            layout.addView(tvOrdenes);
-
-            // Añadir layout al CardView
-            cardView.addView(layout);
-
-            return new AdaptadorFacturaHolder(cardView, tvFecha, tvCliente, tvTotal, tvOrdenes);
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_base_cardview, parent, false);
+            return new AdaptadorFacturaHolder(view);
         }
-
 
         @Override
         public void onBindViewHolder(@NonNull AdaptadorFacturaHolder holder, int position) {
@@ -112,26 +69,56 @@ public class AdministrarFacturas extends AppCompatActivity {
             return facturas.size();
         }
 
-        // --- ViewHolder ---
+        // ---------------- VIEW HOLDER ----------------
         class AdaptadorFacturaHolder extends RecyclerView.ViewHolder {
-            TextView tvFecha, tvCliente, tvTotal, tvOrdenes;
+            LinearLayout cardContent;
 
-            public AdaptadorFacturaHolder(@NonNull View itemView, TextView tvFecha, TextView tvCliente, TextView tvTotal, TextView tvOrdenes) {
+            public AdaptadorFacturaHolder(@NonNull View itemView) {
                 super(itemView);
-                this.tvFecha = tvFecha;
-                this.tvCliente = tvCliente;
-                this.tvTotal = tvTotal;
-                this.tvOrdenes = tvOrdenes;
+                cardContent = itemView.findViewById(R.id.cardContent);
             }
 
             public void imprimir(int position) {
+                // Limpiar vistas anteriores
+                cardContent.removeAllViews();
+
                 Factura factura = facturas.get(position);
                 Cliente cliente = factura.getCliente();
 
+                Context context = itemView.getContext();
+                float density = context.getResources().getDisplayMetrics().density;
+
+                LinearLayout.LayoutParams paramsMargen = new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+                paramsMargen.setMargins(0, 0, 0, (int) (8 * density));
+
+                // Crear y agregar TextViews dinámicamente
+                TextView tvFecha = new TextView(context);
                 tvFecha.setText("Fecha: " + factura.getFecha().toString());
+                tvFecha.setLayoutParams(paramsMargen);
+
+                TextView tvCliente = new TextView(context);
                 tvCliente.setText("Cliente: " + cliente.getUsername() + " (" + cliente.getId() + ")");
+                tvCliente.setLayoutParams(paramsMargen);
+
+                TextView tvTotal = new TextView(context);
                 tvTotal.setText("Total: $" + factura.getTotal());
+                tvTotal.setLayoutParams(paramsMargen);
+
+                TextView tvOrdenes = new TextView(context);
                 tvOrdenes.setText("Órdenes: " + factura.getOrdenes().size());
+                tvOrdenes.setLayoutParams(new LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                ));
+
+                // Agregar al layout del CardView
+                cardContent.addView(tvFecha);
+                cardContent.addView(tvCliente);
+                cardContent.addView(tvTotal);
+                cardContent.addView(tvOrdenes);
             }
         }
     }

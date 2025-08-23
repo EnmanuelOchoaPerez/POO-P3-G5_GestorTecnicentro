@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".AdministrarFacturas">
 
     <include
@@ -16,6 +15,7 @@
 
     <Button
         android:id="@+id/btnGenerar"
+        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -30,7 +30,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
-        android:padding="8dp"
+        android:padding="13dp"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toTopOf="@id/btnGenerar"
         app:layout_constraintEnd_toEndOf="parent"

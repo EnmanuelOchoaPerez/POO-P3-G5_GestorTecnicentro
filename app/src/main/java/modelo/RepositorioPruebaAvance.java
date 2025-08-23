@@ -150,17 +150,15 @@ public class RepositorioPruebaAvance {
 
     private void generarFacturas() {
         facturas.clear(); // Limpia cualquier factura anterior
-
         ArrayList<Orden> ordenesProcesadas = new ArrayList<>();
 
         for (Orden orden : ordenes) {
             Cliente cliente = orden.getCliente();
-            if (!(cliente.getTipoCliente() != TipoCliente.EMPRESA && ordenesProcesadas.contains(orden))) {
+
+            if (cliente.getTipoCliente() == TipoCliente.EMPRESA && !ordenesProcesadas.contains(orden)) {
                 YearMonth fecha = YearMonth.from(orden.getFechaServicio());
 
-                // Agrupar órdenes para la misma factura
                 ArrayList<Orden> grupo = new ArrayList<>();
-
                 for (Orden o : ordenes) {
                     if (!ordenesProcesadas.contains(o)
                             && o.getCliente().getId().equals(cliente.getId())

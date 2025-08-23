@@ -81,9 +81,6 @@ public class AdministrarClientes extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
         rvClientes.setLayoutManager(linearLayoutManager);
         rvClientes.setAdapter(new AdaptadorClientes());
-
-
-
     }
 
     //clase interna adapter
