@@ -56,7 +56,7 @@ public class FormularioNuevoProveedor extends AppCompatActivity {
         );
 
         // Guardar en la lista del AdministrarProveedores usando el repositorio interno
-        boolean agregar = AdministrarProveedores.ProvedoresRepository
+        boolean agregar = AdministrarProveedores.ProveedoresRepository
                 .getInstance()
                 .agregarProveedor(nuevoProveedor);
 

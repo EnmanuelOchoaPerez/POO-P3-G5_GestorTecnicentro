@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    //lanzar la actividad Administrar Tecnicos
+    //lanzar la actividad Administrar Proveedores
     public void mostrarAdministrarProveedores(View v){
         Intent intent= new Intent(this, AdministrarProveedores.class);
         startActivity(intent);

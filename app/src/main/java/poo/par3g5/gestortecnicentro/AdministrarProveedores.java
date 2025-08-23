@@ -29,11 +29,11 @@ public class AdministrarProveedores extends AppCompatActivity {
     RecyclerView rvProveedores;
 
     // Clase interna Singleton
-    public static class ProvedoresRepository {
-        private static AdministrarProveedores.ProvedoresRepository instance;
+    public static class ProveedoresRepository {
+        private static AdministrarProveedores.ProveedoresRepository instance;
         private ArrayList<Proveedor> proveedores;
 
-        private ProvedoresRepository() {
+        private ProveedoresRepository() {
             proveedores = new ArrayList<>();
             // datos de ejemplo
             proveedores.add(new Proveedor("0936", "09852", "Aceites Lucía", "Aceites y lubricantes"));
@@ -43,9 +43,9 @@ public class AdministrarProveedores extends AppCompatActivity {
             proveedores.add(new Proveedor("0940", "09856", "Neumáticos del Sur", "Llantas y neumáticos"));
         }
 
-        public static AdministrarProveedores.ProvedoresRepository getInstance() {
+        public static AdministrarProveedores.ProveedoresRepository getInstance() {
             if (instance == null) {
-                instance = new AdministrarProveedores.ProvedoresRepository();
+                instance = new AdministrarProveedores.ProveedoresRepository();
             }
             return instance;
         }
@@ -74,7 +74,7 @@ public class AdministrarProveedores extends AppCompatActivity {
         setContentView(R.layout.activity_administrar_proveedores);
 
         //Inicializar lista de proveedores desde el repositorio
-        proveedores = AdministrarProveedores.ProvedoresRepository.getInstance().getProveedores();
+        proveedores = AdministrarProveedores.ProveedoresRepository.getInstance().getProveedores();
 
         //configuración del recycler
         rvProveedores =findViewById(R.id.rvProveedores);
