@@ -22,7 +22,11 @@
         </activity>
         <activity android:name=".AdministrarFacturas" />
         <activity android:name=".AdministrarClientes" />
-
+        <activity android:name=".AdministrarProveedores" />
+        <activity android:name=".AdministrarTecnicos" />
+        <activity android:name=".FormularioNuevoCliente" />
+        <activity android:name=".FormularioNuevoProveedor" />
+        <activity android:name=".FormularioNuevoTecnico" />
     </application>
 
 </manifest>
