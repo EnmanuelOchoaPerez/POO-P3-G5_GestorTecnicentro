@@ -24,11 +24,6 @@ public class AdministrarFacturas extends AppCompatActivity {
     private List<Factura> facturas;
     private RecyclerView rvFacturas;
 
-    public void mostrarFormularioCliente(View v) {
-        Intent intento = new Intent(this, FormularioNuevoCliente.class);
-        startActivity(intento);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -40,6 +35,8 @@ public class AdministrarFacturas extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_administrar_facturas);
+        TextView titulo = findViewById(R.id.tvTextoEncabezado);
+        titulo.setText("Administrar Facturas");
 
         // Obtener facturas desde el repositorio global
         facturas = RepositorioPruebaAvance.getInstance().getFacturas();
