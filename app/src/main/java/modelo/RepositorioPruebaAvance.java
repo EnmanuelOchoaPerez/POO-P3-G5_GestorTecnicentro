@@ -237,6 +237,16 @@ public class RepositorioPruebaAvance implements Serializable {
             e.printStackTrace();
         }
     }
+    //eliminar Técnicos por posición
+    public boolean eliminarTecnico(int position) {
+        if (position >= 0 && position < tecnicos.size()) {
+            tecnicos.remove(position);
+            guardarTecnicosEnArchivo(); // persiste el cambio
+            return true;
+        }
+        return false;
+    }
+
 
 
     // --- Proveedores ---

@@ -106,24 +106,24 @@ public class AdministrarTecnicos extends AppCompatActivity {
 
             }
         }
-        // Método para mostrar diálogo de confirmación antes de la eliminación
+
+        // mostrar diálogo de confirmación
         private void mostrarConfirmacionEliminar(int position) {
             new AlertDialog.Builder(AdministrarTecnicos.this)
                     .setTitle("Confirmar eliminación")
                     .setMessage("¿Está seguro que desea eliminar este técnico?")
                     .setPositiveButton("Sí", (dialog, which) -> {
-                        eliminarTecnico(position);
+                        if (RepositorioPruebaAvance.getInstance().eliminarTecnico(position)) {
+                            notifyItemRemoved(position);
+                            notifyItemRangeChanged(position, tecnicos.size());
+                            Toast.makeText(AdministrarTecnicos.this, "Técnico eliminado", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(AdministrarTecnicos.this, "No se pudo eliminar", Toast.LENGTH_SHORT).show();
+                        }
                     })
                     .setNegativeButton("No", null)
                     .show();
         }
 
-        // Método que elimina el técnico de la lista y actualiza el RecyclerView
-        private void eliminarTecnico(int position) {
-            tecnicos.remove(position);
-            notifyItemRemoved(position);
-            notifyItemRangeChanged(position, tecnicos.size());
-            Toast.makeText(AdministrarTecnicos.this, "Técnico eliminado", Toast.LENGTH_SHORT).show();
-        }
     }
 }
