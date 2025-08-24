@@ -2,11 +2,18 @@ package modelo;
 
 import android.annotation.SuppressLint;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
 
-public class RepositorioPruebaAvance {
+public class RepositorioPruebaAvance implements Serializable {
     private static RepositorioPruebaAvance instance;
 
     private ArrayList<Cliente> clientes;
@@ -173,6 +180,90 @@ public class RepositorioPruebaAvance {
                     facturas.add(factura);
                 }
             }
+        }
+    }
+    //Cliente agregar y serializar
+    public boolean agregarCliente(Cliente cliente) {
+        if (getClienteById(cliente.getId()) == null) {
+            clientes.add(cliente);
+            guardarClientesEnArchivo(); // Serializar automáticamente
+            return true;
+        }
+        return false;
+    }
+
+    public void guardarClientesEnArchivo() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("clientes.ser"))) {
+            oos.writeObject(clientes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public void cargarClientesDesdeArchivo() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("clientes.ser"))) {
+            clientes = (ArrayList<Cliente>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            clientes = new ArrayList<>(); // archivo no existe, se crea lista vacía
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+    //  Técnicos agregar y serializar
+    public boolean agregarTecnico(Tecnico tecnico) {
+        if (getTecnicoById(tecnico.getId()) == null) {
+            tecnicos.add(tecnico);
+            guardarTecnicosEnArchivo();
+            return true;
+        }
+        return false;
+    }
+    // serialización
+    public void guardarTecnicosEnArchivo() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("tecnicos.ser"))) {
+            oos.writeObject(tecnicos);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // deserialización
+    public void cargarTecnicosDesdeArchivo() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tecnicos.ser"))) {
+            tecnicos = (ArrayList<Tecnico>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            tecnicos = new ArrayList<>(); // archivo no existe, se crea lista vacía
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    // --- Proveedores ---
+    public boolean agregarProveedor(Proveedor proveedor) {
+        if (getProveedorById(proveedor.getId()) == null) {
+            proveedores.add(proveedor);
+            guardarProveedoresEnArchivo();
+            return true;
+        }
+        return false;
+    }
+    // serialización
+    public void guardarProveedoresEnArchivo() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("proveedores.ser"))) {
+            oos.writeObject(proveedores);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    // deserialización
+    public void cargarProveedoresDesdeArchivo() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("proveedores.ser"))) {
+            proveedores = (ArrayList<Proveedor>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            proveedores = new ArrayList<>(); // archivo no existe, se crea lista vacía
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 }

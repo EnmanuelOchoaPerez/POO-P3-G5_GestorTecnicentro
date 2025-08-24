@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Esta clase es la clase padre de todas demas clases que representan personas
  * en la aplicacion, tales como; Clientes, Tecnicos y Proveedores. Esta clase no
@@ -11,7 +13,7 @@ package modelo;
  *
  * @author Rafael Cosmo
  */
-public abstract class Persona {
+public abstract class Persona implements Serializable {
 
     /**
      * Estos atributos son los datos que se guardan de cada persona, el id

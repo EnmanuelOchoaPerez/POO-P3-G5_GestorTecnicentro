@@ -2,38 +2,56 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdministrarClientes">
 
+    <!-- ENCABEZADO -->
     <LinearLayout
+        android:id="@+id/TituloEncabezado"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#3F51B5"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="13dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView20"
+            android:id="@+id/tvTextoEncabezado"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="Administrar Clientes"
-            android:textAlignment="center"
-            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
             android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/btnAgregarCliente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="mostrarFormularioCliente"
-            android:text="Agregar Cliente" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvClientes"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="8dp" />
-
     </LinearLayout>
+
+    <!-- BOTÓN -->
+    <Button
+        android:id="@+id/btnAgregarCliente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="mostrarFormularioCliente"
+        android:text="Agregar Cliente"
+        app:layout_constraintTop_toBottomOf="@+id/TituloEncabezado"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <!-- RECYCLER VIEW -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvClientes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        android:padding="13dp"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/btnAgregarCliente"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

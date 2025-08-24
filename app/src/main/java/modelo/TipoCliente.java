@@ -4,13 +4,15 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Esta clase tipo enumeracion representa cuales tipos de clientes pueden ser
  * atendidos.
  * @author Rafael Cosmo
  */
 
-public enum TipoCliente {
+public enum TipoCliente implements Serializable {
     PERSONAL,
     EMPRESA
 }

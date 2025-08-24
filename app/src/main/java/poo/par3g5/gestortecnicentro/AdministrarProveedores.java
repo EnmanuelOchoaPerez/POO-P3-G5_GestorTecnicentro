@@ -14,6 +14,7 @@ import java.util.ArrayList;
 
 
 import modelo.Proveedor;
+import modelo.RepositorioPruebaAvance;
 
 
 public class AdministrarProveedores extends AppCompatActivity {
@@ -28,44 +29,8 @@ public class AdministrarProveedores extends AppCompatActivity {
     ArrayList<Proveedor> proveedores;
     RecyclerView rvProveedores;
 
-    // Clase interna Singleton
-    public static class ProveedoresRepository {
-        private static AdministrarProveedores.ProveedoresRepository instance;
-        private ArrayList<Proveedor> proveedores;
 
-        private ProveedoresRepository() {
-            proveedores = new ArrayList<>();
-            // datos de ejemplo
-            proveedores.add(new Proveedor("0936", "09852", "Aceites Lucía", "Aceites y lubricantes"));
-            proveedores.add(new Proveedor("0937", "09853", "Frenos S.A.", "Repuestos y accesorios de frenos"));
-            proveedores.add(new Proveedor("0938", "09854", "Motor Parts", "Partes de motor y transmisiones"));
-            proveedores.add(new Proveedor("0939", "09855", "Luces LED", "Iluminación automotriz"));
-            proveedores.add(new Proveedor("0940", "09856", "Neumáticos del Sur", "Llantas y neumáticos"));
-        }
 
-        public static AdministrarProveedores.ProveedoresRepository getInstance() {
-            if (instance == null) {
-                instance = new AdministrarProveedores.ProveedoresRepository();
-            }
-            return instance;
-        }
-
-        public ArrayList<Proveedor> getProveedores() {
-            return  proveedores;
-        }
-
-        public boolean agregarProveedor(Proveedor proveedor) {
-            //validar si el proveedor por agregar ya existe
-            for (Proveedor p : proveedores) {
-                if (p.getId().equals(proveedor.getId())) {
-                    return false; // No agregado porque ya existe
-                }
-            }
-            proveedores.add(proveedor);
-            return true; // Se agregó con éxito
-        }
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +39,7 @@ public class AdministrarProveedores extends AppCompatActivity {
         setContentView(R.layout.activity_administrar_proveedores);
 
         //Inicializar lista de proveedores desde el repositorio
-        proveedores = AdministrarProveedores.ProveedoresRepository.getInstance().getProveedores();
+        proveedores = RepositorioPruebaAvance.getInstance().getProveedores();
 
         //configuración del recycler
         rvProveedores =findViewById(R.id.rvProveedores);

@@ -13,10 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import modelo.Cliente;
+import modelo.RepositorioPruebaAvance;
 import modelo.TipoCliente;
 
 
 public class AdministrarClientes extends AppCompatActivity {
+    ArrayList<Cliente> clientes;
+    RecyclerView rvClientes;
     public void mostrarFormularioCliente(View v){
         Intent intento = new Intent(this, FormularioNuevoCliente.class);
         startActivity(intento);
@@ -25,47 +28,9 @@ public class AdministrarClientes extends AppCompatActivity {
         super.onResume();
         rvClientes.getAdapter().notifyDataSetChanged();
     }
-    ArrayList<Cliente> clientes;
-    RecyclerView rvClientes;
 
-    // Clase interna Singleton
-    public static class ClienteRepository {
-        private static ClienteRepository instance;
-        private ArrayList<Cliente> clientes;
 
-        private ClienteRepository() {
-            clientes = new ArrayList<>();
-            // datos de ejemplo
-            clientes.add(new Cliente("0998", "09994", "Marcelo Castro", "Guayaquil", TipoCliente.PERSONAL));
-            clientes.add(new Cliente("0102", "09876", "Ana Torres", "Quito", TipoCliente.EMPRESA));
-            clientes.add(new Cliente("0234", "09543", "Luis Pérez", "Cuenca", TipoCliente.PERSONAL));
-            clientes.add(new Cliente("0456", "09765", "María Gómez", "Ambato", TipoCliente.EMPRESA));
-            clientes.add(new Cliente("0678", "09654", "Sofía Morales", "Manta", TipoCliente.PERSONAL));
-        }
 
-        public static ClienteRepository getInstance() {
-            if (instance == null) {
-                instance = new ClienteRepository();
-            }
-            return instance;
-        }
-
-        public ArrayList<Cliente> getClientes() {
-            return clientes;
-        }
-
-        public boolean agregarCliente(Cliente cliente) {
-            //validar si el cliente por agregar ya existe
-            for (Cliente c : clientes) {
-                if (c.getId().equals(cliente.getId())) {
-                    return false; // No agregado porque ya existe
-                }
-            }
-            clientes.add(cliente);
-            return true; // Se agregó con éxito
-        }
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,14 +38,13 @@ public class AdministrarClientes extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_administrar_clientes);
 
-        //Inicializar lista de clientes desde el repositorio
-        clientes = ClienteRepository.getInstance().getClientes();
+        // Obtener clientes desde el repositorio global
+        clientes = RepositorioPruebaAvance.getInstance().getClientes();
 
-        //configuración del recycler
-        rvClientes =findViewById(R.id.rvClientes);
-        LinearLayoutManager linearLayoutManager= new LinearLayoutManager(this);
-        rvClientes.setLayoutManager(linearLayoutManager);
-        rvClientes.setAdapter(new AdaptadorClientes());
+        // Configurar el RecyclerView
+        rvClientes = findViewById(R.id.rvClientes);
+        rvClientes.setLayoutManager(new LinearLayoutManager(this));
+        rvClientes.setAdapter(new AdministrarClientes.AdaptadorClientes());
     }
 
     //clase interna adapter
@@ -105,6 +69,7 @@ public class AdministrarClientes extends AppCompatActivity {
             return clientes.size();
         }
 
+        //view holder
         private class AdaptadorClientesHolder extends RecyclerView.ViewHolder{
             public AdaptadorClientesHolder(@NonNull View itemView) {
                 super(itemView);

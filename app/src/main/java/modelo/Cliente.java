@@ -4,13 +4,15 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Esta clase hija de Persona representa a los clientes del taller. Almacena
  * datos específicos como la dirección y el tipo de cliente.
  *
  * @author Rafael Cosmo
  */
-public class Cliente extends Persona {
+public class Cliente extends Persona implements Serializable {
 
     /**
      * Representa el tipo de cliente (Personal, Empresa).

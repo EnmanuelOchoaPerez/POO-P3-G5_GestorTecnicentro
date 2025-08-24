@@ -4,6 +4,8 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Esta clase hija de Persona representa a los proveedores del taller. Guarda
  * información de contacto y una descripción de los productos o servicios que
@@ -11,7 +13,7 @@ package modelo;
  *
  * @author Rafael Cosmo
  */
-public class Proveedor extends Persona {
+public class Proveedor extends Persona implements Serializable {
 
     /**
      * Este atributo representa una breve descripción del proveedor, como el

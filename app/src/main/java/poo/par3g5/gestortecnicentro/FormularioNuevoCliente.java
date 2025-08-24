@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import modelo.Cliente;
+import modelo.RepositorioPruebaAvance;
 import modelo.TipoCliente;
 
 public class FormularioNuevoCliente extends AppCompatActivity {
@@ -65,15 +66,8 @@ public class FormularioNuevoCliente extends AppCompatActivity {
                 TipoCliente.valueOf(tipoSeleccionado)
         );
 
-        // Guardar en la lista del AdministrarClientes usando el repositorio interno
-        boolean agregado = AdministrarClientes.ClienteRepository
-                .getInstance()
-                .agregarCliente(nuevoCliente);
+        // Guardar en la lista del AdministrarClientes usando el repositorio
+        boolean agregado = RepositorioPruebaAvance.getInstance().agregarCliente(nuevoCliente);
 
-        if (!agregado) {
-            Toast.makeText(this, "El cliente con ese ID ya existe", Toast.LENGTH_SHORT).show();
-        } else {
-            finish(); // Cierra el formulario y vuelve atrás
-        }
     }
 }

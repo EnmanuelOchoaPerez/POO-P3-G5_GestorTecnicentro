@@ -9,6 +9,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import modelo.RepositorioPruebaAvance;
 import modelo.Tecnico;
 
 public class FormularioNuevoTecnico extends AppCompatActivity {
@@ -54,15 +55,7 @@ public class FormularioNuevoTecnico extends AppCompatActivity {
                 especialidad
         );
 
-        // Guardar en la lista del AdministrarTecnicos usando el repositorio interno
-        boolean agregar = AdministrarTecnicos.TecnicosRepository
-                .getInstance()
-                .agregarTecnico(nuevoTecnico);
-
-        if (!agregar) {
-            Toast.makeText(this, "El técnico con ese ID ya existe", Toast.LENGTH_SHORT).show();
-        } else {
-            finish(); // Cierra el formulario y vuelve atrás
-        }
+        // Guardar en la lista del AdministrarClientes usando el repositorio
+        boolean agregado = RepositorioPruebaAvance.getInstance().agregarTecnico(nuevoTecnico);
     }
 }

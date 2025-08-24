@@ -1,42 +1,62 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:layout_margin="8dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    android:backgroundTint="@color/cardview_light_background">
 
-    <TextView
-        android:id="@+id/tvIdTecnico"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ID:"
-        android:textStyle="bold" />
+        android:orientation="vertical"
+        android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvNombreTecnico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Nombre:" />
+        <!-- ID -->
+        <TextView
+            android:id="@+id/tvIdTecnico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ID:"
+            android:textStyle="bold"
+            android:layout_marginBottom="8dp" />
 
-    <TextView
-        android:id="@+id/tvTelefonoTecnico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Teléfono:" />
+        <!-- Nombre -->
+        <TextView
+            android:id="@+id/tvNombreTecnico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre:"
+            android:layout_marginBottom="8dp" />
 
-    <TextView
-        android:id="@+id/tvEspecialidadTecnico"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Especialidad:" />
+        <!-- Teléfono -->
+        <TextView
+            android:id="@+id/tvTelefonoTecnico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Teléfono:"
+            android:layout_marginBottom="8dp" />
 
-    <Button
-        android:id="@+id/btnEliminar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/holo_red_dark"
-        android:text="Eliminar"
-        android:textColor="@android:color/white" />
+        <!-- Especialidad -->
+        <TextView
+            android:id="@+id/tvEspecialidadTecnico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Especialidad:"
+            android:layout_marginBottom="12dp" />
 
+        <!-- Botón Eliminar -->
+        <Button
+            android:id="@+id/btnEliminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="Eliminar"
+            android:textColor="@android:color/white"
+            android:layout_gravity="end" />
 
+    </LinearLayout>
 
-</LinearLayout>
+</androidx.cardview.widget.CardView>

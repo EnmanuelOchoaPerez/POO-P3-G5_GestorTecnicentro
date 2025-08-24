@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import modelo.Proveedor;
+import modelo.RepositorioPruebaAvance;
 
 
 public class FormularioNuevoProveedor extends AppCompatActivity {
@@ -55,15 +56,7 @@ public class FormularioNuevoProveedor extends AppCompatActivity {
                 descripcion
         );
 
-        // Guardar en la lista del AdministrarProveedores usando el repositorio interno
-        boolean agregar = AdministrarProveedores.ProveedoresRepository
-                .getInstance()
-                .agregarProveedor(nuevoProveedor);
-
-        if (!agregar) {
-            Toast.makeText(this, "El proveedor con ese ID ya existe", Toast.LENGTH_SHORT).show();
-        } else {
-            finish(); // Cierra el formulario y vuelve atrás
-        }
+        // Guardar en la lista del AdministrarClientes usando el repositorio
+        boolean agregado = RepositorioPruebaAvance.getInstance().agregarProveedor(nuevoProveedor);
     }
 }

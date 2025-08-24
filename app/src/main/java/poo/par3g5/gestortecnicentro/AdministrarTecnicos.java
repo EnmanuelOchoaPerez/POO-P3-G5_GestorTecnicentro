@@ -17,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import modelo.RepositorioPruebaAvance;
 import modelo.Tecnico;
 
 public class AdministrarTecnicos extends AppCompatActivity {
-
+        ArrayList<Tecnico> tecnicos;
+        RecyclerView rvTecnicos;
     public void mostrarFormularioTecnico(View v){
         Intent intent = new Intent(this, FormularioNuevoTecnico.class);
         startActivity(intent);
@@ -29,47 +31,7 @@ public class AdministrarTecnicos extends AppCompatActivity {
         super.onResume();
         rvTecnicos.getAdapter().notifyDataSetChanged();
     }
-    ArrayList<Tecnico> tecnicos;
-    RecyclerView rvTecnicos;
 
-    // Clase interna Singleton
-    public static class TecnicosRepository {
-        private static AdministrarTecnicos.TecnicosRepository instance;
-        private ArrayList<Tecnico> tecnicos;
-
-        private TecnicosRepository() {
-            tecnicos = new ArrayList<>();
-            // datos de ejemplo
-            tecnicos.add(new Tecnico("0952", "09852", "Juan Sánchez", "Mecánica General"));
-            tecnicos.add(new Tecnico("0953", "09853", "María Rodríguez", "Electricidad Automotriz"));
-            tecnicos.add(new Tecnico("0954", "09854", "Pedro Gómez", "Carrocería y Pintura"));
-            tecnicos.add(new Tecnico("0955", "09855", "Ana Pérez", "Electrónica y Diagnóstico"));
-            tecnicos.add(new Tecnico("0956", "09856", "Luis Torres", "Reparación de Motores Diesel"));
-        }
-
-        public static AdministrarTecnicos.TecnicosRepository getInstance() {
-            if (instance == null) {
-                instance = new AdministrarTecnicos.TecnicosRepository();
-            }
-            return instance;
-        }
-
-        public ArrayList<Tecnico> getTecnicos() {
-            return  tecnicos;
-        }
-
-        public boolean agregarTecnico(Tecnico tecnico) {
-            //validar si el proveedor por agregar ya existe
-            for (Tecnico t : tecnicos) {
-                if (t.getId().equals(tecnico.getId())) {
-                    return false; // No agregado porque ya existe
-                }
-            }
-            tecnicos.add(tecnico);
-            return true; // Se agregó con éxito
-        }
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +40,7 @@ public class AdministrarTecnicos extends AppCompatActivity {
         setContentView(R.layout.activity_administrar_tecnicos);
 
         //Inicializar lista de proveedores desde el repositorio
-        tecnicos = AdministrarTecnicos.TecnicosRepository.getInstance().getTecnicos();
+        tecnicos = RepositorioPruebaAvance.getInstance().getTecnicos();
 
         //configuración del recycler
         rvTecnicos =findViewById(R.id.rvTecnicos);
@@ -114,7 +76,7 @@ public class AdministrarTecnicos extends AppCompatActivity {
 
         private class AdaptadorTecnicosHolder extends RecyclerView.ViewHolder{
             TextView tvIdTecnico, tvNombreTecnico, tvTelefonoTecnico, tvEspecialidadTecnico;
-            Button btnEliminar;  //  botón para eliminar tecnico
+            Button btnEliminar;  //  botón para eliminar técnico
             public AdaptadorTecnicosHolder(@NonNull View itemView) {
                 super(itemView);
                 tvIdTecnico = itemView.findViewById(R.id.tvIdTecnico);

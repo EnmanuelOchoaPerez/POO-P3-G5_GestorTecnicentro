@@ -4,13 +4,15 @@
  */
 package modelo;
 
+import java.io.Serializable;
+
 /**
  * Esta clase hija de Persona representan a l@s que trabajan en el taller y
  * guarda los datos de interes correspondientes.
  *
  * @author Rafael Cosmo
  */
-public class Tecnico extends Persona {
+public class Tecnico extends Persona implements Serializable {
 
     /**
      * Estos atributos son los datos de interes especificios de esta clase
