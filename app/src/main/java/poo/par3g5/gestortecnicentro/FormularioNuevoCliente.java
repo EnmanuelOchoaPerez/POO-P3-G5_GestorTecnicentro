@@ -68,6 +68,12 @@ public class FormularioNuevoCliente extends AppCompatActivity {
 
         // Guardar en la lista del AdministrarClientes usando el repositorio
         boolean agregado = RepositorioPruebaAvance.getInstance().agregarCliente(nuevoCliente);
-
+        //validación para agregar
+        if (agregado) {
+            Toast.makeText(this, "Cliente guardado", Toast.LENGTH_SHORT).show();
+            finish(); // volver a AdministrarClientes
+        } else {
+            Toast.makeText(this, "El cliente ya existe", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -58,5 +58,12 @@ public class FormularioNuevoProveedor extends AppCompatActivity {
 
         // Guardar en la lista del AdministrarClientes usando el repositorio
         boolean agregado = RepositorioPruebaAvance.getInstance().agregarProveedor(nuevoProveedor);
+        //validación para agregar
+        if (agregado) {
+            Toast.makeText(this, "Proveedor guardado", Toast.LENGTH_SHORT).show();
+            finish(); // volver a AdministrarProveedor
+        } else {
+            Toast.makeText(this, "El proveedor ya existe", Toast.LENGTH_SHORT).show();
+        }
     }
 }

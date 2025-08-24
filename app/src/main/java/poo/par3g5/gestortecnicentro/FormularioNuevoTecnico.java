@@ -57,5 +57,12 @@ public class FormularioNuevoTecnico extends AppCompatActivity {
 
         // Guardar en la lista del AdministrarClientes usando el repositorio
         boolean agregado = RepositorioPruebaAvance.getInstance().agregarTecnico(nuevoTecnico);
+        //validación para agregar
+        if (agregado) {
+            Toast.makeText(this, "Técnico guardado", Toast.LENGTH_SHORT).show();
+            finish(); // volver a AdministrarTecnico
+        } else {
+            Toast.makeText(this, "El técnico ya existe", Toast.LENGTH_SHORT).show();
+        }
     }
 }
