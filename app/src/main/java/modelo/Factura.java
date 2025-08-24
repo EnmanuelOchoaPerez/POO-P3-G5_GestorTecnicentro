@@ -19,7 +19,7 @@ public class Factura {
 
     /**
      * Atributos de la factura:
-     * - fecha: mes y año al que corresponde la factura.
+     * - fecha: mes y inputAño al que corresponde la factura.
      * - cliente: cliente al que se le genera la factura.
      * - ordenes: lista de órdenes realizadas por el cliente en ese período.
      * - total: monto total de la factura (suma de órdenes + tarifa base).

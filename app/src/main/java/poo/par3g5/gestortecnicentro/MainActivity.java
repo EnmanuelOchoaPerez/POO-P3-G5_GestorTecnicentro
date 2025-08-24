@@ -42,7 +42,15 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void mostrarReporteTecnicos(View v){
+        Intent intent= new Intent(this, ReporteTecnicos.class);
+        startActivity(intent);
+    }
 
+    public void mostrarReporteSerivicios(View v){
+        Intent intent= new Intent(this, ReporteServicios.class);
+        startActivity(intent);
+    }
 
     public void abrirFacturas(View v) {
         Intent intento = new Intent(this, AdministrarFacturas.class);
