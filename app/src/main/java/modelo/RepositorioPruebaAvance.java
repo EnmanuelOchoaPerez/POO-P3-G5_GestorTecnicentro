@@ -2,6 +2,8 @@ package modelo;
 
 import android.annotation.SuppressLint;
 
+import androidx.annotation.NonNull;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,6 +49,7 @@ public class RepositorioPruebaAvance implements Serializable {
         servicios.add(new Servicio("Lavado de motor en seco", 30.0, LocalDate.of(2024, 7, 15)));
         servicios.add(new Servicio("Revisión de frenos", 45.0, LocalDate.of(2024, 7, 15)));
         servicios.add(new Servicio("Diagnóstico electrónico", 60.0, LocalDate.of(2024, 7, 15)));
+        guardarServiciosEnArchivo();
 
         // --- TÉCNICOS ---
         tecnicos.add(new Tecnico("0458926173", "0967812049", "Carlos López", "Mecánico general"));
@@ -67,27 +70,24 @@ public class RepositorioPruebaAvance implements Serializable {
                 LocalDate.of(2025, 5, 14),
                 new Vehiculo("GUB-1603", TipoVehiculo.BUS),
                 new ArrayList<>(detalles)));
-
         detalles.set(0, new DetalleServicio(servicios.get(1), 2));
         detalles.set(1, new DetalleServicio(servicios.get(0), 1));
         detalles.remove(2);
         ordenes.add(new Orden(
                 getClienteById("0824937125"),
                 getTecnicoById("0367819402"),
-                LocalDate.of(2025, 7, 24),
+                LocalDate.of(2025, 7, 14),
                 new Vehiculo("Gk195P", TipoVehiculo.MOTOCICLETA),
                 new ArrayList<>(detalles)));
-
         detalles.set(0, new DetalleServicio(servicios.get(4), 2));
         detalles.set(1, new DetalleServicio(servicios.get(0), 1));
         detalles.add(new DetalleServicio(servicios.get(3), 1));
         ordenes.add(new Orden(
                 getClienteById("0741068357"),
                 getTecnicoById("0458926173"),
-                LocalDate.of(2025, 7, 24),
+                LocalDate.of(2025, 7, 5),
                 new Vehiculo("Ghc-1856", TipoVehiculo.AUTO),
                 new ArrayList<>(detalles)));
-
         detalles.set(0, new DetalleServicio(servicios.get(5), 2));
         detalles.set(1, new DetalleServicio(servicios.get(0), 1));
         detalles.add(new DetalleServicio(servicios.get(1), 4));
@@ -98,8 +98,12 @@ public class RepositorioPruebaAvance implements Serializable {
                 LocalDate.of(2025, 7, 24),
                 new Vehiculo("Gpo575l", TipoVehiculo.MOTOCICLETA),
                 new ArrayList<>(detalles)));
-        generarFacturas();
+        guardarOrdenesEnArchivo();
 
+        facturas.clear(); // Limpia cualquier factura anterior
+        facturas.add(generarFactura(ordenes, "0927593816001", YearMonth.parse("2025-05")));
+        facturas.add(generarFactura(ordenes, "0637592816001", YearMonth.parse("2025-07")));
+        guardarFacturasEnArchivo();
     }
 
     public static RepositorioPruebaAvance getInstance() {
@@ -155,35 +159,49 @@ public class RepositorioPruebaAvance implements Serializable {
         return (index >= 0 && index < ordenes.size()) ? ordenes.get(index) : null;
     }
 
-    private void generarFacturas() {
-        facturas.clear(); // Limpia cualquier factura anterior
+    private Factura generarFactura(@NonNull ArrayList<Orden> ordenesNoProcesadas, String clienteId, YearMonth fecha) {
+        Cliente cliente = getClienteById(clienteId);
         ArrayList<Orden> ordenesProcesadas = new ArrayList<>();
 
-        for (Orden orden : ordenes) {
-            Cliente cliente = orden.getCliente();
-
-            if (cliente.getTipoCliente() == TipoCliente.EMPRESA && !ordenesProcesadas.contains(orden)) {
-                YearMonth fecha = YearMonth.from(orden.getFechaServicio());
-
-                ArrayList<Orden> grupo = new ArrayList<>();
-                for (Orden o : ordenes) {
-                    if (!ordenesProcesadas.contains(o)
-                            && o.getCliente().getId().equals(cliente.getId())
-                            && YearMonth.from(o.getFechaServicio()).equals(fecha)) {
-                        grupo.add(o);
-                        ordenesProcesadas.add(o);
-                    }
-                }
-
-                if (!grupo.isEmpty()) {
-                    Factura factura = new Factura(fecha, cliente, grupo);
-                    facturas.add(factura);
-                }
+        if (cliente == null || cliente.getTipoCliente() != TipoCliente.EMPRESA) {
+            return null;
+        }
+        for (Orden o : ordenesNoProcesadas) {
+            if (!ordenesProcesadas.contains(o) &&
+                    o.getCliente().getId().equals(clienteId) &&
+                    YearMonth.from(o.getFechaServicio()).equals(fecha)) {
+                ordenesProcesadas.add(o);
             }
         }
+
+        return ordenesProcesadas.isEmpty() ? null : new Factura(fecha, cliente, ordenesProcesadas);
     }
+
+    public void guardarFacturasEnArchivo() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("facturas.ser"))) {
+            oos.writeObject(facturas);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void guardarOrdenesEnArchivo() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("facturas.ser"))) {
+            oos.writeObject(ordenes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    public void guardarServiciosEnArchivo() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("facturas.ser"))) {
+            oos.writeObject(servicios);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //Cliente agregar y serializar
-    public boolean agregarCliente(Cliente cliente) {
+    public boolean agregarCliente(@NonNull Cliente cliente) {
         if (getClienteById(cliente.getId()) == null) {
             clientes.add(cliente);
             guardarClientesEnArchivo(); // Serializar automáticamente
@@ -210,8 +228,9 @@ public class RepositorioPruebaAvance implements Serializable {
             e.printStackTrace();
         }
     }
+
     //  Técnicos agregar y serializar
-    public boolean agregarTecnico(Tecnico tecnico) {
+    public boolean agregarTecnico(@NonNull Tecnico tecnico) {
         if (getTecnicoById(tecnico.getId()) == null) {
             tecnicos.add(tecnico);
             guardarTecnicosEnArchivo();
@@ -219,6 +238,7 @@ public class RepositorioPruebaAvance implements Serializable {
         }
         return false;
     }
+
     // serialización
     public void guardarTecnicosEnArchivo() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("tecnicos.ser"))) {
@@ -227,6 +247,7 @@ public class RepositorioPruebaAvance implements Serializable {
             e.printStackTrace();
         }
     }
+
     // deserialización
     public void cargarTecnicosDesdeArchivo() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tecnicos.ser"))) {
@@ -237,20 +258,18 @@ public class RepositorioPruebaAvance implements Serializable {
             e.printStackTrace();
         }
     }
+
     //eliminar Técnicos por posición
     public boolean eliminarTecnico(int position) {
         if (position >= 0 && position < tecnicos.size()) {
             tecnicos.remove(position);
-            guardarTecnicosEnArchivo(); // persiste el cambio
             return true;
         }
         return false;
     }
 
-
-
     // --- Proveedores ---
-    public boolean agregarProveedor(Proveedor proveedor) {
+    public boolean agregarProveedor(@NonNull Proveedor proveedor) {
         if (getProveedorById(proveedor.getId()) == null) {
             proveedores.add(proveedor);
             guardarProveedoresEnArchivo();
@@ -258,6 +277,7 @@ public class RepositorioPruebaAvance implements Serializable {
         }
         return false;
     }
+
     // serialización
     public void guardarProveedoresEnArchivo() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("proveedores.ser"))) {
@@ -266,6 +286,7 @@ public class RepositorioPruebaAvance implements Serializable {
             e.printStackTrace();
         }
     }
+
     // deserialización
     public void cargarProveedoresDesdeArchivo() {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("proveedores.ser"))) {
@@ -276,5 +297,6 @@ public class RepositorioPruebaAvance implements Serializable {
             e.printStackTrace();
         }
     }
+
 }
 
