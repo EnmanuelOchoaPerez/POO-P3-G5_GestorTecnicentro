@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void abrirFacturas(View v) {
-        Intent intento = new Intent(this, AdministrarFacturas.class);
-        startActivity(intento);
+        Intent intent = new Intent(this, AdministrarFacturas.class);
+        startActivity(intent);
     }
 
     public void salir(View view) {

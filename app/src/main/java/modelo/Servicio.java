@@ -4,7 +4,9 @@
  */
 package modelo;
 
-import java.time.LocalDate;
+import java.time.YearMonth;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Esta clase se encarga de guardar los datos necesarios de los servicios
@@ -21,13 +23,12 @@ public class Servicio {
      * sera reconocido el servicio, el precio del mismo asi como su respectivo
      * regesitro que es un historial de precios. El recaudo representa el monto
      * total que se ha recaudado en el taller con cada servicio.
-     *
      */
     private static int contadorId = 1;
     private int codigo;
     private String nombre;
     private double precio;
-    private double recaudo;
+    private Map<YearMonth, Double> gananciasPorMes;
 
     /**
      * Este constructor de la clase recibe unicamente el nombre, el precio
@@ -37,26 +38,31 @@ public class Servicio {
      *
      * @param nombre
      * @param precio
-     * @param fecha
      */
-    public Servicio(String nombre, double precio, LocalDate fecha) {
+    public Servicio(String nombre, double precio) {
         this.codigo = contadorId++;
         this.nombre = nombre;
         this.precio = precio;
-        this.recaudo = 0;
+        gananciasPorMes = new HashMap<>();
+    }
+
+
+    /**
+     * Metodo para obtener ganancia de un mes específico
+     */
+
+    public double getGanancia(YearMonth mes) {
+        return gananciasPorMes.getOrDefault(mes, 0.0);
+    }
+
+    public void agregarGanancia(YearMonth mes, double ganancia) {
+        double totalMes = gananciasPorMes.getOrDefault(mes, 0.0);
+        gananciasPorMes.put(mes, totalMes + ganancia);
     }
 
     /**
      * Getters y Setters necesarios para la clase en el sistema
      */
-    public double getRecaudo() {
-        return recaudo;
-    }
-
-    public void setRecaudo(double recaudo) {
-        this.recaudo += recaudo;
-    }
-
     public int getCodigo() {
         return codigo;
     }
@@ -67,17 +73,6 @@ public class Servicio {
 
     public double getPrecio() {
         return precio;
-    }
-
-    /**
-     * Este metodo setter tambien se encarga de registrar los cambios en el
-     * historial por lo que tambien recibe una fecha.
-     *
-     * @param precio
-     * @param fecha
-     */
-    public void setPrecio(double precio, LocalDate fecha) {
-        this.precio = precio;
     }
 
     /**

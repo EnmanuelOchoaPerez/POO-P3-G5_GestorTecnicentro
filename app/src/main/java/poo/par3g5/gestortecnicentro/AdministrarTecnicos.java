@@ -48,8 +48,6 @@ public class AdministrarTecnicos extends AppCompatActivity {
         rvTecnicos.setLayoutManager(linearLayoutManager);
         rvTecnicos.setAdapter(new AdministrarTecnicos.AdaptadorTecnicos());
 
-
-
     }
 
     //clase interna adapter

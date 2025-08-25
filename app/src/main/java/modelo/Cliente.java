@@ -5,6 +5,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Esta clase hija de Persona representa a los clientes del taller. Almacena
@@ -74,5 +75,13 @@ public class Cliente extends Persona implements Serializable {
         sb.append(", ").append(direccion);
         sb.append(", ").append(tipoCliente);
         return sb.toString();
+    }
+
+    /**
+     * Usar el id como base para generar el hashcode de cliente.
+     * @return hashCode
+     */
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

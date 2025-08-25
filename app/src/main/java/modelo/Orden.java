@@ -4,6 +4,9 @@
  */
 package modelo;
 
+import android.annotation.SuppressLint;
+
+import java.time.YearMonth;
 import java.util.ArrayList;
 import java.time.LocalDate;
 
@@ -42,6 +45,7 @@ public class Orden {
      * @param vehiculo 
      * @param servicios 
      */
+    @SuppressLint("NewApi")
     public Orden(Cliente cliente, Tecnico tecnico, LocalDate fecha, Vehiculo vehiculo, ArrayList<DetalleServicio> servicios) {
         this.tecnico = tecnico;
         this.cliente = cliente;
@@ -49,7 +53,9 @@ public class Orden {
         this.vehiculo = vehiculo;
         this.servicios = servicios;
         this.total = this.calcularTotal();
-        this.tecnico.setGanancia(total);
+        this.actualizarGanancias();
+        this.tecnico.agregarGanancia(YearMonth.from(fecha),total);
+
     }
 
     /**
@@ -65,6 +71,12 @@ public class Orden {
             total += s.calcularSubtotal();
         }
         return total;
+    }
+    private void actualizarGanancias() {
+        YearMonth mes = YearMonth.from(this.fechaServicio);
+        for (DetalleServicio s : servicios) {
+            s.getServicio().agregarGanancia(mes, s.calcularSubtotal());
+        }
     }
 
     /**

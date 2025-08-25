@@ -26,6 +26,7 @@
         <activity android:name=".FormularioNuevoCliente" />
         <activity android:name=".FormularioNuevoProveedor" />
         <activity android:name=".FormularioNuevoTecnico" />
+        <activity android:name=".FormularioNuevaFactura" />
         <activity android:name=".ReporteServicios" />
         <activity android:name=".ReporteTecnicos" />
     </application>

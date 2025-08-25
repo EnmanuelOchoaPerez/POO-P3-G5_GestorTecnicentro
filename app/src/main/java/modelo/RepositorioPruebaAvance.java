@@ -14,6 +14,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class RepositorioPruebaAvance implements Serializable {
     private static RepositorioPruebaAvance instance;
@@ -42,13 +43,13 @@ public class RepositorioPruebaAvance implements Serializable {
         clientes.add(new Cliente("0519283742001", "0975086214", "Constructora Delta", "Pasaje San Martín S3-115, Pinar Alto, Guayas", TipoCliente.EMPRESA));
         clientes.add(new Cliente("0927593816001", "0975086214", "Grupo HG S.A", "Calle Robles N12-45, Urbanización La Colina, Guayas", TipoCliente.EMPRESA));
 
-        // --- SERVICIOS ---
-        servicios.add(new Servicio("Cambio de aceite", 50.0, LocalDate.of(2024, 7, 15)));
-        servicios.add(new Servicio("Cambio de llantas", 20.0, LocalDate.of(2024, 7, 15)));
-        servicios.add(new Servicio("Alineación y balanceo", 35.0, LocalDate.of(2024, 7, 15)));
-        servicios.add(new Servicio("Lavado de motor en seco", 30.0, LocalDate.of(2024, 7, 15)));
-        servicios.add(new Servicio("Revisión de frenos", 45.0, LocalDate.of(2024, 7, 15)));
-        servicios.add(new Servicio("Diagnóstico electrónico", 60.0, LocalDate.of(2024, 7, 15)));
+        // --- SERVICIOS --
+        servicios.add(new Servicio("Cambio de aceite", 50.0));
+        servicios.add(new Servicio("Cambio de llantas", 20.0));
+        servicios.add(new Servicio("Alineación y balanceo", 35.0));
+        servicios.add(new Servicio("Lavado de motor en seco", 30.0));
+        servicios.add(new Servicio("Revisión de frenos", 45.0));
+        servicios.add(new Servicio("Diagnóstico electrónico", 60.0));
         guardarServiciosEnArchivo();
 
         // --- TÉCNICOS ---
@@ -62,7 +63,7 @@ public class RepositorioPruebaAvance implements Serializable {
         // --- ÓRDENES ---
         ArrayList<DetalleServicio> detalles = new ArrayList<>();
         detalles.add(new DetalleServicio(servicios.get(1), 4));
-        detalles.add(new DetalleServicio(servicios.get(0), 1));
+        detalles.add(new DetalleServicio(servicios.get(0), 3));
         detalles.add(new DetalleServicio(servicios.get(3), 1));
         ordenes.add(new Orden(
                 getClienteById("0927593816001"),
@@ -70,28 +71,29 @@ public class RepositorioPruebaAvance implements Serializable {
                 LocalDate.of(2025, 5, 14),
                 new Vehiculo("GUB-1603", TipoVehiculo.BUS),
                 new ArrayList<>(detalles)));
-        detalles.set(0, new DetalleServicio(servicios.get(1), 2));
-        detalles.set(1, new DetalleServicio(servicios.get(0), 1));
-        detalles.remove(2);
+        detalles.clear();
+        detalles.add(new DetalleServicio(servicios.get(1), 1));
+        detalles.add(new DetalleServicio(servicios.get(0), 1));
         ordenes.add(new Orden(
                 getClienteById("0824937125"),
                 getTecnicoById("0367819402"),
-                LocalDate.of(2025, 7, 14),
+                LocalDate.of(2025, 1, 20),
                 new Vehiculo("Gk195P", TipoVehiculo.MOTOCICLETA),
                 new ArrayList<>(detalles)));
-        detalles.set(0, new DetalleServicio(servicios.get(4), 2));
-        detalles.set(1, new DetalleServicio(servicios.get(0), 1));
+        detalles.clear();
+        detalles.add(new DetalleServicio(servicios.get(4), 2));
+        detalles.add(new DetalleServicio(servicios.get(0), 2));
         detalles.add(new DetalleServicio(servicios.get(3), 1));
         ordenes.add(new Orden(
                 getClienteById("0741068357"),
                 getTecnicoById("0458926173"),
-                LocalDate.of(2025, 7, 5),
+                LocalDate.of(2025, 3, 5),
                 new Vehiculo("Ghc-1856", TipoVehiculo.AUTO),
                 new ArrayList<>(detalles)));
-        detalles.set(0, new DetalleServicio(servicios.get(5), 2));
-        detalles.set(1, new DetalleServicio(servicios.get(0), 1));
-        detalles.add(new DetalleServicio(servicios.get(1), 4));
-        detalles.remove(2);
+        detalles.clear();
+        detalles.add(new DetalleServicio(servicios.get(5), 2));
+        detalles.add(new DetalleServicio(servicios.get(0), 1));
+        detalles.add(new DetalleServicio(servicios.get(1), 2));
         ordenes.add(new Orden(
                 getClienteById("0637592816001"),
                 getTecnicoById("0458926173"),
@@ -101,8 +103,7 @@ public class RepositorioPruebaAvance implements Serializable {
         guardarOrdenesEnArchivo();
 
         facturas.clear(); // Limpia cualquier factura anterior
-        facturas.add(generarFactura(ordenes, "0927593816001", YearMonth.parse("2025-05")));
-        facturas.add(generarFactura(ordenes, "0637592816001", YearMonth.parse("2025-07")));
+        facturas.add(generarFactura("0927593816001", YearMonth.parse("2025-05")));
         guardarFacturasEnArchivo();
     }
 
@@ -143,6 +144,13 @@ public class RepositorioPruebaAvance implements Serializable {
         return clientes.stream().filter(c -> c.getId().equals(id)).findFirst().orElse(null);
     }
 
+    public ArrayList<Cliente> getEmpresas() {
+        return (ArrayList<Cliente>) clientes.stream()
+                .filter(c -> c.getTipoCliente().equals(TipoCliente.EMPRESA))
+                .collect(Collectors.toList());  // Devuelve una lista de todas las empresas
+    }
+
+
     public Tecnico getTecnicoById(String id) {
         return tecnicos.stream().filter(t -> t.getId().equals(id)).findFirst().orElse(null);
     }
@@ -155,18 +163,15 @@ public class RepositorioPruebaAvance implements Serializable {
         return proveedores.stream().filter(p -> p.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public Orden getOrdenByIndex(int index) {
-        return (index >= 0 && index < ordenes.size()) ? ordenes.get(index) : null;
-    }
-
-    private Factura generarFactura(@NonNull ArrayList<Orden> ordenesNoProcesadas, String clienteId, YearMonth fecha) {
+    //Factura: generar, guardar y serializar
+    public Factura generarFactura(String clienteId, YearMonth fecha) {
         Cliente cliente = getClienteById(clienteId);
         ArrayList<Orden> ordenesProcesadas = new ArrayList<>();
 
         if (cliente == null || cliente.getTipoCliente() != TipoCliente.EMPRESA) {
             return null;
         }
-        for (Orden o : ordenesNoProcesadas) {
+        for (Orden o : ordenes) {
             if (!ordenesProcesadas.contains(o) &&
                     o.getCliente().getId().equals(clienteId) &&
                     YearMonth.from(o.getFechaServicio()).equals(fecha)) {
@@ -185,6 +190,16 @@ public class RepositorioPruebaAvance implements Serializable {
         }
     }
 
+    public void agregarFactura(@NonNull Factura factura) {
+        for (Factura f : facturas) {
+            if (f.equals(factura)) {
+                return;
+            }
+        }
+        facturas.add(factura);
+    }
+
+    //Orden: serializar
     public void guardarOrdenesEnArchivo() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("facturas.ser"))) {
             oos.writeObject(ordenes);
@@ -192,6 +207,8 @@ public class RepositorioPruebaAvance implements Serializable {
             e.printStackTrace();
         }
     }
+
+    //Servicio: serializar
     public void guardarServiciosEnArchivo() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("facturas.ser"))) {
             oos.writeObject(servicios);

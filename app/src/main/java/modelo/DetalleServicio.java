@@ -33,7 +33,6 @@ public class DetalleServicio {
     public DetalleServicio(Servicio servicio, int cantidad) {
         this.servicio = servicio;
         this.cantidad = cantidad;
-        this.servicio.setRecaudo(calcularSubtotal());
     }
 
     /**

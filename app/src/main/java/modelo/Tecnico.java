@@ -5,6 +5,9 @@
 package modelo;
 
 import java.io.Serializable;
+import java.time.YearMonth;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Esta clase hija de Persona representan a l@s que trabajan en el taller y
@@ -20,7 +23,7 @@ public class Tecnico extends Persona implements Serializable {
      * mejor a cada tecnico y cuanto ha sido recaudado gracias a este.
      */
     private String especialidad;
-    private double ganancia;
+    private Map<YearMonth, Double> gananciasPorMes;
 
     /**
      * Este constructor de la clase es un constructor basico que invoca al
@@ -36,18 +39,19 @@ public class Tecnico extends Persona implements Serializable {
     public Tecnico(String id, String telefono, String nombre, String especialidad) {
         super(id, telefono, nombre);
         this.especialidad = especialidad;
-        this.ganancia = 0;
+        gananciasPorMes = new HashMap<>();
     }
 
     /**
      * Getters y Setters necesarios para la clase en el sistema
      */
-    public double getGanancia() {
-        return ganancia;
+    public double getGanancia(YearMonth mes) {
+        return gananciasPorMes.getOrDefault(mes, 0.0);
     }
 
-    public void setGanancia(double ganancia) {
-        this.ganancia += ganancia;
+    public void agregarGanancia(YearMonth mes, double ganancia) {
+        double totalMes = gananciasPorMes.getOrDefault(mes, 0.0);
+        gananciasPorMes.put(mes, totalMes + ganancia);
     }
 
     public String getEspecialidad() {

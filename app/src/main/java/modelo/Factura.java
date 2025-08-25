@@ -6,6 +6,7 @@ package modelo;
 
 import java.time.YearMonth;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * Esta clase representa una factura generada para una empresa por los servicios
@@ -77,5 +78,23 @@ public class Factura {
 
     public double getTotal() {
         return total;
+    }
+
+    /**
+     * Implementacion de equals para diferenciar y validar facturas mediante el hascode
+     * @param obj
+     * @return boolean equals
+     */
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        Factura factura = (Factura) obj;
+        return fecha.equals(factura.fecha) && cliente.equals(factura.cliente);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fecha, cliente);
     }
 }

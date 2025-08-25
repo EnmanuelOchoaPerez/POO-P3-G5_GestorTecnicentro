@@ -15,11 +15,13 @@
 
     <Button
         android:id="@+id/btnGenerar"
-        android:padding="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
-        android:text="Generar"
+        android:onClick="generarNuevaFactura"
+        android:padding="16dp"
+        android:text="Generar nueva factura"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
